@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Component
 public class JwtTokenUtil {
-    public static final String PREFIX = "Bearer";
+    public static final String PREFIX = "Bearer ";
 
     // Token có hạn trong vòng 24 giờ kể từ thời điểm tạo, thời gian tính theo giây
     @Value("${jwt.duration}")
@@ -43,7 +43,7 @@ public class JwtTokenUtil {
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + duration * 1000))
-                .signWith(SignatureAlgorithm.ES512, secret)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
         return PREFIX + token;
     }

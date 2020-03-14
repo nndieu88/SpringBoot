@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConfigurerAdapter {
     @Autowired
-    private AuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private JwtAuthenticationEntryPoit jwtAuthenticationEntryPoint;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -49,7 +50,8 @@ public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConf
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/register", "/authenticate").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
+                .antMatchers(HttpMethod.POST, "/register", "/admins/users/authenticate").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
+                .antMatchers(HttpMethod.POST,  "/admins/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

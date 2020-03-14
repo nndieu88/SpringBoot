@@ -6,7 +6,7 @@ import com.smartosc.mobile.model.request.CreateUserRequest;
 import com.smartosc.mobile.model.request.UpdateUserRequest;
 
 import java.util.Date;
-//import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserMapper {
     public static UserDto toUserDto(User user) {
@@ -36,8 +36,8 @@ public class UserMapper {
         user.setCreateDate(new Date());
         user.setUpdateDate(new Date());
 
-//        String hash= BCrypt.hashpw(cur.getPassword(),BCrypt.gensalt(12));
-        user.setPassword(cur.getPassword());
+        String hash= BCrypt.hashpw(cur.getPassword(),BCrypt.gensalt(12));
+        user.setPassword(hash);
 
         return user;
     }
@@ -56,8 +56,8 @@ public class UserMapper {
         user.setCreateDate(date);
         user.setUpdateDate(new Date());
 
-//        String hash= BCrypt.hashpw(cur.getPassword(),BCrypt.gensalt(12));
-//        user.setPassword(hash);
+        String hash= BCrypt.hashpw(uur.getPassword(),BCrypt.gensalt(12));
+        user.setPassword(hash);
 
         return user;
     }
