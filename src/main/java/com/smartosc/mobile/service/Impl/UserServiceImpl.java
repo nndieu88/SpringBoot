@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -60,10 +61,11 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateRecordException("Email already exists in the system");
         }
         User user1 = UserMapper.toUser(createUserRequest);
-        Role role = new Role();
-        role.setNameRole("USER");
         try {
-            roleRepository.save(role);
+//                Role role = new Role();
+//                role.setNameRole("USER");
+//                roleRepository.save(role);
+
             userRepository.save(user1);
         } catch (Exception ex) {
             throw new InternalServerException("Can't create user");
@@ -78,7 +80,7 @@ public class UserServiceImpl implements UserService {
         if (!user.isPresent()) {
             throw new NotFoundException("Not found user");
         }
-        User user1 = UserMapper.toUser(updateUserRequest, id);
+        User user1 = UserMapper.toUser(updateUserRequest, id, user.get().getCreateDate(), user.get().getPassword());
         try {
             userRepository.save(user1);
         } catch (Exception ex) {

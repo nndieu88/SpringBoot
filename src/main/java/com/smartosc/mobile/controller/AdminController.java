@@ -59,7 +59,7 @@ public class AdminController {
 
     //admin-products-page
     @GetMapping("/products")
-    public String product(Model model, @PageableDefault(size = 10) Pageable pageable) {
+    public String product(Model model,Pageable pageable) {
         Page<Product> products = productService.getAllProduct(pageable);
         model.addAttribute("products",products);
         return "/admin/products";

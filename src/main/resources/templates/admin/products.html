@@ -58,16 +58,16 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-                    <h1>Category Management</h1>
+                    <h1>Product Management</h1>
                     <form class="form-inline my-2 my-lg-0" method="get">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
                 </div>
 
-                <button type="button" class="btn btn-primary" id="new-category" data-toggle="modal"
+                <button type="button" class="btn btn-primary" id="new-product" data-toggle="modal"
                         style="margin-bottom: 20px">
-                    Add new category
+                    Add new product
                 </button>
 
                 <div class="col-lg-12 grid-margin stretch-card">
@@ -80,30 +80,40 @@
                                         #
                                     </th>
 
-                                    <th colspan="5">
+                                    <th colspan="2">
                                         Name
                                     </th>
-                                    <th colspan="2">
-                                        Date_Created
+                                    <th colspan="1">
+                                        Model
                                     </th>
-                                    <th colspan="2">
-                                        Date_Updated
+                                    <th colspan="1">
+                                        Image
+                                    </th>
+                                    <th colspan="1">
+                                        Price
+                                    </th>
+                                    <th colspan="1">
+                                        Status
+                                    </th>
+                                    <th colspan="3">
+                                        Description
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="cate, i : ${category}">
+                                <tr th:each="product, i : ${products}">
                                     <td colspan="1" th:text="${i.count}"></td>
-                                    <td colspan="5" th:text="${cate.nameCate}"></td>
-                                    <td colspan="2"
-                                        th:text="${#dates.format(cate.createDate,'dd-MM-yyyy HH:mm:ss')}"></td>
-                                    <td colspan="2"
-                                        th:text="${#dates.format(cate.updateDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                    <td colspan="2" th:text="${product.nameProd}"></td>
+                                    <td colspan="1" th:text="${product.model}"></td>
+                                    <td colspan="1" th:text="${product.image}"></td>
+                                    <td colspan="1" th:text="${product.price}"></td>
+                                    <td colspan="1" th:text="${product.status}"></td>
+                                    <td colspan="3" th:text="${product.description}"></td>
                                     <td colspan="1">
-                                        <i class="far fa-edit btn-edit-cate" title="Edit category"
-                                           th:attr="cateid=${cate.id}" style="cursor: pointer"></i>
-                                        <i class="far fa-trash-alt btn-delete-cate" title="Delete category"
-                                           th:attr="cateid=${cate.id}" style="cursor: pointer"></i>
+                                        <i class="far fa-edit btn-edit-product" title="Edit product"
+                                           th:attr="cateid=${product.id}" style="cursor: pointer"></i>
+                                        <i class="far fa-trash-alt btn-delete-product" title="Delete product"
+                                           th:attr="cateid=${product.id}" style="cursor: pointer"></i>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -130,10 +140,29 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                                <label>Category name:</label>
+                                <label>Product name:</label>
                                 <input type="text" class="form-control" id="input-category-name">
                             </div>
-
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Model:</label>
+                                <input type="text" class="form-control" id="input-category-model">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Image:</label>
+                                <input type="text" class="form-control" id="input-category-image">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Price:</label>
+                                <input type="text" class="form-control" id="input-category-price">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Status:</label>
+                                <input type="text" class="form-control" id="input-category-status">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Description:</label>
+                                <input type="text" class="form-control" id="input-category-decription">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" id="btn-close" data-dismiss="modal">Close
@@ -160,10 +189,29 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                                <label>Category name:</label>
+                                <label>Product name:</label>
                                 <input type="text" class="form-control" id="input-cate-name-update">
                             </div>
-
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Model:</label>
+                                <input type="text" class="form-control" id="input-cate-model-update">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Image:</label>
+                                <input type="text" class="form-control" id="input-cate-image-update">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Price:</label>
+                                <input type="text" class="form-control" id="input-cate-price-update">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Status:</label>
+                                <input type="text" class="form-control" id="input-cate-status-update">
+                            </div>
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Description:</label>
+                                <input type="text" class="form-control" id="input-cate-decription-update">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary bnt-close" data-dismiss="modal">Close
@@ -201,6 +249,6 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <!--<script th:src="@{/js/admin-category.js}"></script>-->
-<script th:src="@{/js/admin-cate.js}"></script>
+<script th:src="@{/js/admin-product.js}"></script>
 </body>
 </html>

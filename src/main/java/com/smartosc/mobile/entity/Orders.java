@@ -24,7 +24,7 @@ public class Orders {
     private Long price;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private User user;
 
     @ManyToMany

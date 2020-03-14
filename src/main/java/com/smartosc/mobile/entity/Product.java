@@ -27,8 +27,6 @@ public class Product {
 
     private String model;
 
-    private String manufacturer;
-
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private ArrayList<String> image;
@@ -37,9 +35,9 @@ public class Product {
 
     private String status;
 
-    private String decription;
+    private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinColumn
     private Category category;
 }

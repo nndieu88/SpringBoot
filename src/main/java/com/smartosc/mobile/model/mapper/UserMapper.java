@@ -4,11 +4,13 @@ import com.smartosc.mobile.entity.User;
 import com.smartosc.mobile.model.dto.UserDto;
 import com.smartosc.mobile.model.request.CreateUserRequest;
 import com.smartosc.mobile.model.request.UpdateUserRequest;
+
+import java.util.Date;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserMapper {
-    public static UserDto toUserDto(User user){
-        UserDto userDto=new UserDto();
+    public static UserDto toUserDto(User user) {
+        UserDto userDto = new UserDto();
 
         userDto.setId(user.getId());
         userDto.setName(user.getNameUser());
@@ -16,27 +18,32 @@ public class UserMapper {
         userDto.setPhone(user.getPhone());
         userDto.setAvatar(user.getAvatar());
         userDto.setEmail(user.getEmail());
+        userDto.setStatus(false);
+        userDto.setCreateDate(user.getCreateDate());
+        userDto.setUpdateDate(user.getUpdateDate());
+//        userDto.setRole(user.getRoles());
 
         return userDto;
     }
 
-    public static User toUser(CreateUserRequest cur){
-        User user=new User();
+    public static User toUser(CreateUserRequest cur) {
+        User user = new User();
 
         user.setNameUser(cur.getName());
-        user.setAddress(cur.getAddress());
-        user.setPhone(cur.getPhone());
-        user.setAvatar(cur.getAvatar());
         user.setEmail(cur.getEmail());
+//        user.setRoles(cur.getRoles());
+        user.setStatus(false);
+        user.setCreateDate(new Date());
+        user.setUpdateDate(new Date());
 
 //        String hash= BCrypt.hashpw(cur.getPassword(),BCrypt.gensalt(12));
-//        user.setPassword(hash);
+        user.setPassword(cur.getPassword());
 
         return user;
     }
 
-    public static User toUser(UpdateUserRequest uur, Long id){
-        User user=new User();
+    public static User toUser(UpdateUserRequest uur, Long id, Date date, String password) {
+        User user = new User();
 
         user.setId(id);
         user.setNameUser(uur.getName());
@@ -44,6 +51,10 @@ public class UserMapper {
         user.setPhone(uur.getPhone());
         user.setAvatar(uur.getAvatar());
         user.setEmail(uur.getEmail());
+        user.setPassword(uur.getPassword());
+        user.setStatus(false);
+        user.setCreateDate(date);
+        user.setUpdateDate(new Date());
 
 //        String hash= BCrypt.hashpw(cur.getPassword(),BCrypt.gensalt(12));
 //        user.setPassword(hash);

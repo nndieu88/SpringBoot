@@ -8,12 +8,16 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class CreateCategoryRequest {
+@NoArgsConstructor
+public class AuthenticationRequest {
     @NotNull
     @NotEmpty
-    private String nameCate;
+    private String email;
+
+    @NotNull
+    @NotEmpty
+    private String password;
 }

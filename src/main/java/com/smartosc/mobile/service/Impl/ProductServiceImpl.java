@@ -4,6 +4,8 @@ import com.smartosc.mobile.entity.Product;
 import com.smartosc.mobile.exception.DuplicateRecordException;
 import com.smartosc.mobile.exception.InternalServerException;
 import com.smartosc.mobile.exception.NotFoundException;
+import com.smartosc.mobile.model.mapper.ProductMapper;
+import com.smartosc.mobile.model.request.UpdateProductRequest;
 import com.smartosc.mobile.repository.ProductRepository;
 import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +46,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public UpdateProductRequest updateProduct(Long id, UpdateProductRequest product) {
         Optional<Product> product1 = productRepository.findById(id);
         if (!product1.isPresent()) {
             throw new NotFoundException("Not found product");
         }
+        Product product2=ProductMapper.toProduct(product,id);
         try {
-            productRepository.save(product);
+            productRepository.save(product2);
         } catch (Exception ex) {
             throw new InternalServerException("Can't update product");
         }

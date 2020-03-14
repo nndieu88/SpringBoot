@@ -1,6 +1,7 @@
 package com.smartosc.mobile.service;
 
 import com.smartosc.mobile.entity.Product;
+import com.smartosc.mobile.model.request.UpdateProductRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public interface ProductService {
 
     public Product createProduct(Product product);
 
-    public Product updateProduct(Long id, Product product);
+    public UpdateProductRequest updateProduct(Long id, UpdateProductRequest product);
 
     public void deleteProduct(Long id);
 }

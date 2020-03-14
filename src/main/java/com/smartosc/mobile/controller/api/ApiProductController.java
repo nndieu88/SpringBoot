@@ -1,6 +1,7 @@
 package com.smartosc.mobile.controller.api;
 
 import com.smartosc.mobile.entity.Product;
+import com.smartosc.mobile.model.request.UpdateProductRequest;
 import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("admins/products")
 public class ApiProductController {
     @Autowired
     private ProductService productService;
@@ -36,12 +37,12 @@ public class ApiProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody UpdateProductRequest product) {
         productService.updateProduct(id, product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);

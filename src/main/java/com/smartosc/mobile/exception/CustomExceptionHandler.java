@@ -20,6 +20,12 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> handlerBadRequestException(BadRequestException ex, WebRequest req) {
+        ErrorResponse er = new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(InternalServerException.class)
     public ResponseEntity<?> handlerInternalServerexception(InternalServerException ex, WebRequest req) {
         ErrorResponse er = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());

@@ -20,7 +20,7 @@ public class UpdateUserRequest {
             notes = "from 6 characters",
             required = true
     )
-    @JsonProperty("full_name")
+//    @JsonProperty("full_name")
     private String name;
 
     @NotNull
