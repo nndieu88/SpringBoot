@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var dataProduct = {};
+    var dataCate = {};
 
     $(".close, #btn-close").on("click", function () {
         location.reload();
@@ -11,18 +12,25 @@ $(document).ready(function () {
 
         $("#save-cate").on("click", function () {
             dataProduct.nameProd = $("#input-category-name").val();
-            dataProduct.model = $("#input-category-model").val();
-            // dataProduct.image
             dataProduct.price = $("#input-category-price").val();
             dataProduct.status = $("#input-category-status").val();
             dataProduct.description = $("#input-category-decription").val();
+            dataProduct.cate_id = parseInt($(".category-id-create").val());
 
-            axios.post("http://localhost:8080/admins/products", dataProduct)
+            var form = new FormData;
+            form.append("file", $("#files")[0].files[0]);
+            axios.post("http://localhost:8080/upload", form)
                 .then(function (data) {
-                    swal("successful");
+                    dataProduct.image = data.data;
+                    axios.post("http://localhost:8080/admins/products", dataProduct)
+                        .then(function (data) {
+                            swal("successful");
+                        }).catch(function (err) {
+                        swal("err");
+                    });
                 }).catch(function (err) {
-                swal("err");
-            });
+                swal("Nhap hinh vao");
+            })
         });
     });
 
@@ -30,32 +38,47 @@ $(document).ready(function () {
     $(".btn-edit-product").on("click", function () {
         $("#modal-update-cate").modal();
         var id = $(this).attr("cateid");
+        var img;
 
         axios.get("http://localhost:8080/admins/products/" + id)
             .then(function (data) {
                 $("#input-cate-name-update").val(data.data.nameProd);
-                $("#input-cate-model-update").val(data.data.model);
-                // $("#input-cate-image-update").val(data.data.image);
+                $("#img").attr("src", data.data.image);
                 $("#input-cate-price-update").val(data.data.price);
                 $("#input-cate-status-update").val(data.data.status);
                 $("#input-cate-decription-update").val(data.data.description);
-                console.log(data);
+                img = data.data.image;
             });
 
         $("#btn-update-cate").on("click", function () {
             dataProduct.nameProd = $("#input-cate-name-update").val();
-            dataProduct.model = $("#input-cate-model-update").val();
-            // dataProduct.image=$()
             dataProduct.price = $("#input-cate-price-update").val();
             dataProduct.status = $("#input-cate-status-update").val();
             dataProduct.description = $("#input-cate-decription-update").val();
+            dataProduct.cate_id=parseInt($(".category-id-update").val());
 
-            axios.put("http://localhost:8080/admins/products/" + id, dataProduct)
-                .then(function (data) {
-                    swal("successful");
-                }).catch(function (err) {
-                swal("err");
-            })
+            if ($("#file")[0].files.length === 0) {
+                dataProduct.image = img;
+                update(id, dataProduct);
+            } else {
+                var form = new FormData;
+                form.append("file", $("#file")[0].files[0])
+                axios.post("http://localhost:8080/upload", form)
+                    .then(function (data) {
+                        dataProduct.image = data.data;
+                        update(id, dataProduct);
+                    })
+            }
+
+            function update(id, dataProduct) {
+                axios.put("http://localhost:8080/admins/products/" + id, dataProduct)
+                    .then(function (data) {
+                        swal("successful");
+                        location.reload();
+                    }).catch(function (err) {
+                    swal("err");
+                })
+            }
         })
 
     });
@@ -74,6 +97,5 @@ $(document).ready(function () {
             return;
         }
         location.reload();
-    })
-
-});
+    });
+})

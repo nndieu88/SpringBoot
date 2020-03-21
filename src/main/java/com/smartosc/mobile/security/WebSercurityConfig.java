@@ -50,13 +50,17 @@ public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConf
                 .csrf()
                 .disable()
                 .authorizeRequests()
-//                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/*.js").permitAll()
-//                .antMatchers("/css/*.css", "/js/*.css", "/images/**").permitAll()
-                .antMatchers("/users/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/register", "/admins/users/authenticate").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
+                .antMatchers("/resources/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/logins").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
+//                .antMatchers(HttpMethod.POST, "/admins/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
 //                .antMatchers(HttpMethod.GET,  "/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
                 .anyRequest().permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)

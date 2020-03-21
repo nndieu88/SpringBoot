@@ -19,11 +19,11 @@ public class ApiCategoryController {
     @Autowired
     private CategoryService categoryService;
 
-//    @GetMapping("")
-//    public ResponseEntity<?> getAllCategory() {
-//        List<Category> categories = categoryService.findAllCategory();
-//        return new ResponseEntity<>(categories, HttpStatus.OK);
-//    }
+    @GetMapping("")
+    public ResponseEntity<?> getAllCategory() {
+        List<Category> categories = categoryService.findAllCategory();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable Long id) {

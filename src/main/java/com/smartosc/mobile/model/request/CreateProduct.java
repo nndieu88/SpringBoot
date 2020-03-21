@@ -6,13 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.Date;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateProductRequest {
+public class CreateProduct {
     private String nameProd;
 
     private Category category;
@@ -26,5 +26,4 @@ public class UpdateProductRequest {
     private String description;
 
     private Long cate_id;
-
 }

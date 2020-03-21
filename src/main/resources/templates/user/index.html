@@ -1,58 +1,122 @@
+
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/user/main_layout :: main-fragment(
-                                                ~{:: title},
-                                                ~{:: #about-static-resources},
-                                                ~{:: #about-main-content}
-                                               )}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Mobilestore</title>
+    <title>Mobilestore Website Template | Home :: W3layouts</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <meta name="keywords"
+          content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
+    <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="css/responsiveslides.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use "$(window).load(function() {"
+        $(function () {
 
-    <th:block id="about-static-resources">
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet'
-              type='text/css'>
-        <link rel="stylesheet" href="css/responsiveslides.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/responsiveslides.min.js"></script>
-        <script>
-            // You can also use "$(window).load(function() {"
-            $(function () {
-
-                // Slideshow 1
-                $("#slider1").responsiveSlides({
-                    maxwidth: 1600,
-                    speed: 600
-                });
+            // Slideshow 1
+            $("#slider1").responsiveSlides({
+                maxwidth: 1600,
+                speed: 600
             });
-        </script>
-    </th:block>
+        });
+    </script>
 </head>
 <body>
-
-
-<div id="about-main-content">
-    <div class="wrap">
-        <div class="image-slider">
-            <!-- Slideshow 1 -->
-            <ul class="rslides" id="slider1">
-                <li><img src="images/1.png" alt=""></li>
-                <li><img src="images/2.png" alt=""></li>
-                <li><img src="images/1.png" alt=""></li>
-            </ul>
-            <!-- Slideshow 2 -->
+<div class="wrap">
+    <!----start-Header---->
+    <div class="header">
+        <div class="search-bar">
+            <form>
+                <input type="text"><input type="submit" value="Search"/>
+            </form>
         </div>
-        <!--End-image-slider---->
+        <div class="clear"></div>
+        <div class="header-top-nav">
+            <ul>
+                <li><a href="http://localhost:8080/mobile/register">Register</a></li>
+                <li><a href="http://localhost:8080/mobile/login">Login</a></li>
+                <li><a href="#">Checkout</a></li>
+                <li><a href="#">My account</a></li>
+                <li><a href="http://localhost:8080/mobile/cart"><span>shopping cart&nbsp;&nbsp;: </span></a><label th:text="${myCart.getCount()}"> </label></li>
+                <li><span>view: </span><label th:text="${myCounter.getCount()}"></label></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
     </div>
+</div>
+<div class="clear"></div>
+<div class="top-header">
+    <div class="wrap">
+        <!----start-logo---->
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" title="logo"/></a>
+        </div>
+        <!----end-logo---->
+        <!----start-top-nav---->
+        <div class="top-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li><a href="store.html">Featured</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!----End-top-nav---->
+<!----End-Header---->
+<!--start-image-slider---->
+<div class="wrap">
+    <div class="image-slider">
+        <!-- Slideshow 1 -->
+        <ul class="rslides" id="slider1">
+            <li><img src="images/1.png" alt=""></li>
+            <li><img src="images/2.png" alt=""></li>
+            <li><img src="images/1.png" alt=""></li>
+        </ul>
+        <!-- Slideshow 2 -->
+    </div>
+    <!--End-image-slider---->
+</div>
+<div class="clear"></div>
+<div class="wrap">
+    <div class="content">
 
-    <div class="content-grids">
-        <h4>Deals of the day</h4>
-        <div class="section group">
-            <div class="grid_1_of_4 images_1_of_4 products-info">
-                <img src="images/m1.jpg">
-                <a href="single.html">Duis aute irure dolor in reprehenderit sed do eiusmod tempor incididunt</a>
-                <h3>$140</h3>
+        <div class="content-grids">
+            <h4>Deals of the day</h4>
+            <div class="section group">
+                <div class="grid_1_of_4 images_1_of_4 products-info">
+                    <img src="images/m1.jpg">
+                    <a href="single.html">Duis aute irure dolor in reprehenderit sed do eiusmod tempor incididunt</a>
+                    <h3>$140</h3>
+                </div>
             </div>
+        </div>
+        <div class="content-sidebar">
+            <h4>Categories</h4>
+            <ul>
+                <li><a href="#">Accord Mobiles</a></li>
+                <li><a href="#">Ace Mobile</a></li>
+                <li><a href="#">Acer Mobile</a></li>
+                <li><a href="#">Airfone</a></li>
+                <li><a href="#">Apple</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="footer">
+
+    <div class="clear"></div>
+    <div class="wrap">
+        <div class="copy-right">
+            <p>&copy; 2013 Mobile Store. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3Layouts</a>
+            </p>
         </div>
     </div>
 </div>

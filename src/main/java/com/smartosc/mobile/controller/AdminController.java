@@ -3,6 +3,7 @@ package com.smartosc.mobile.controller;
 import com.smartosc.mobile.entity.Category;
 import com.smartosc.mobile.entity.Orders;
 import com.smartosc.mobile.entity.Product;
+import com.smartosc.mobile.model.dto.ProductDto;
 import com.smartosc.mobile.model.dto.UserDto;
 import com.smartosc.mobile.service.CategoryService;
 import com.smartosc.mobile.service.OrdersService;
@@ -61,7 +62,9 @@ public class AdminController {
     @GetMapping("/products")
     public String product(Model model,Pageable pageable) {
         Page<Product> products = productService.getAllProduct(pageable);
+        List<Category> categories=categoryService.findAllCategory();
         model.addAttribute("products",products);
+        model.addAttribute("categories",categories);
         return "/admin/products";
     }
 

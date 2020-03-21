@@ -23,5 +23,5 @@ public class UserDto {
     private boolean status;
     private Date createDate;
     private Date updateDate;
-    private Set<Role> role;
+    private String role;
 }

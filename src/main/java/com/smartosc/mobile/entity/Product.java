@@ -6,7 +6,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Setter
 @Getter
@@ -14,10 +13,10 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Entity
 @Table
-@TypeDef(
-        name = "json",
-        typeClass = JsonStringType.class
-)
+//@TypeDef(
+//        name = "json",
+//        typeClass = JsonStringType.class
+//)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +24,10 @@ public class Product {
 
     private String nameProd;
 
-    private String model;
-
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private ArrayList<String> image;
+//    @Type(type = "json")
+//    @Column(columnDefinition = "json")
+//    private ArrayList<String> image;
+    private String image;
 
     private Long price;
 

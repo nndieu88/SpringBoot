@@ -3,7 +3,6 @@ package com.smartosc.mobile.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -18,6 +17,4 @@ public class Role {
 
     private String nameRole;
 
-//    @ManyToMany(mappedBy = "roles")
-//    private List<User> users;
 }

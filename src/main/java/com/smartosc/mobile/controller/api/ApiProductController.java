@@ -1,6 +1,8 @@
 package com.smartosc.mobile.controller.api;
 
 import com.smartosc.mobile.entity.Product;
+import com.smartosc.mobile.model.request.CreateCategoryRequest;
+import com.smartosc.mobile.model.request.CreateProduct;
 import com.smartosc.mobile.model.request.UpdateProductRequest;
 import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,9 @@ public class ApiProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createProduct(@RequestBody Product product) {
-        Product product1 = productService.createProduct(product);
-        return new ResponseEntity<>(product1, HttpStatus.OK);
+    public ResponseEntity<?> createProduct(@RequestBody CreateProduct product) {
+        productService.createProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

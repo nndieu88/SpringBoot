@@ -1,17 +1,20 @@
 package com.smartosc.mobile.model.mapper;
 
+import com.smartosc.mobile.entity.Role;
 import com.smartosc.mobile.entity.User;
 import com.smartosc.mobile.model.dto.UserDto;
 import com.smartosc.mobile.model.request.CreateUserRequest;
 import com.smartosc.mobile.model.request.UpdateUserRequest;
 
 import java.util.Date;
+
+import com.smartosc.mobile.service.Impl.RoleServiceImpl;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserMapper {
+
     public static UserDto toUserDto(User user) {
         UserDto userDto = new UserDto();
-
         userDto.setId(user.getId());
         userDto.setName(user.getNameUser());
         userDto.setAddress(user.getAddress());
@@ -21,17 +24,15 @@ public class UserMapper {
         userDto.setStatus(false);
         userDto.setCreateDate(user.getCreateDate());
         userDto.setUpdateDate(user.getUpdateDate());
-//        userDto.setRole(user.getRoles());
+        userDto.setRole(user.getRole().getNameRole());
 
         return userDto;
     }
 
     public static User toUser(CreateUserRequest cur) {
         User user = new User();
-
         user.setNameUser(cur.getName());
         user.setEmail(cur.getEmail());
-//        user.setRoles(cur.getRoles());
         user.setStatus(false);
         user.setCreateDate(new Date());
         user.setUpdateDate(new Date());
@@ -42,7 +43,7 @@ public class UserMapper {
         return user;
     }
 
-    public static User toUser(UpdateUserRequest uur, Long id, Date date, String password) {
+    public static User toUser(UpdateUserRequest uur, Long id, Date date, Role role) {
         User user = new User();
 
         user.setId(id);
@@ -52,6 +53,7 @@ public class UserMapper {
         user.setAvatar(uur.getAvatar());
         user.setEmail(uur.getEmail());
         user.setPassword(uur.getPassword());
+        user.setRole(role);
         user.setStatus(false);
         user.setCreateDate(date);
         user.setUpdateDate(new Date());

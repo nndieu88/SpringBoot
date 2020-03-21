@@ -30,12 +30,6 @@ public class ApiUserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @ApiOperation(value = "get all user", response = UserDto.class, responseContainer = "List")
     @ApiResponses({
             @ApiResponse(code = 500, message = "")
@@ -88,25 +82,5 @@ public class ApiUserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest req) {
-        // Xác thực từ username và password.
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        req.getEmail(),
-                        req.getPassword()
-                )
-        );
-
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Gen token
-        String token = jwtTokenUtil.generateToken((CustomUserDetails) authentication.getPrincipal());
-
-        return ResponseEntity.ok(token);
     }
 }

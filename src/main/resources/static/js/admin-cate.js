@@ -4,7 +4,6 @@ $(document).ready(function () {
 
     $(".close, #btn-close").on("click", function () {
         location.reload();
-        s
     });
 
     // add

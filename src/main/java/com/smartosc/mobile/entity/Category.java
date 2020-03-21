@@ -27,6 +27,4 @@ public class Category {
 
     private Date updateDate;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    private Set<Product> products;
 }

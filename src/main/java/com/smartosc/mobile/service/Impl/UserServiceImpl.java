@@ -61,10 +61,8 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateRecordException("Email already exists in the system");
         }
         User user1 = UserMapper.toUser(createUserRequest);
+        user1.setRole(roleRepository.findById(2L).get());
         try {
-//                Role role = new Role();
-//                role.setNameRole("USER");
-//                roleRepository.save(role);
 
             userRepository.save(user1);
         } catch (Exception ex) {
@@ -80,7 +78,7 @@ public class UserServiceImpl implements UserService {
         if (!user.isPresent()) {
             throw new NotFoundException("Not found user");
         }
-        User user1 = UserMapper.toUser(updateUserRequest, id, user.get().getCreateDate(), user.get().getPassword());
+        User user1 = UserMapper.toUser(updateUserRequest, id, user.get().getCreateDate(),user.get().getRole());
         try {
             userRepository.save(user1);
         } catch (Exception ex) {

@@ -1,11 +1,14 @@
 package com.smartosc.mobile.service.Impl;
 
+import com.smartosc.mobile.entity.Category;
 import com.smartosc.mobile.entity.Product;
 import com.smartosc.mobile.exception.DuplicateRecordException;
 import com.smartosc.mobile.exception.InternalServerException;
 import com.smartosc.mobile.exception.NotFoundException;
 import com.smartosc.mobile.model.mapper.ProductMapper;
+import com.smartosc.mobile.model.request.CreateProduct;
 import com.smartosc.mobile.model.request.UpdateProductRequest;
+import com.smartosc.mobile.repository.CategoryRepository;
 import com.smartosc.mobile.repository.ProductRepository;
 import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public Page<Product> getAllProduct(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
@@ -29,19 +35,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<Product> getProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
-        if (!product.isPresent()){
-            throw  new NotFoundException("Not found product");
+        if (!product.isPresent()) {
+            throw new NotFoundException("Not found product");
         }
         return product;
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public CreateProduct createProduct(CreateProduct product) {
         Product product1 = productRepository.findByNameProd(product.getNameProd());
         if (product1 != null) {
             throw new DuplicateRecordException("Name_product is already in use");
         }
-        productRepository.save(product);
+        Category category = categoryRepository.findById(product.getCate_id()).get();
+        product.setCategory(category);
+        productRepository.save(ProductMapper.toProduct(product));
         return product;
     }
 
@@ -51,9 +59,10 @@ public class ProductServiceImpl implements ProductService {
         if (!product1.isPresent()) {
             throw new NotFoundException("Not found product");
         }
-        Product product2=ProductMapper.toProduct(product,id);
+        Category category = categoryRepository.findById(product.getCate_id()).get();
+        product.setCategory(category);
         try {
-            productRepository.save(product2);
+            productRepository.save(ProductMapper.toProduct(product, id));
         } catch (Exception ex) {
             throw new InternalServerException("Can't update product");
         }

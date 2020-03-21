@@ -24,12 +24,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUserDetailServce userDetailsService;
 
-    private static String HEADER = "Authorization";
+//    private static String HEADER = "Authorization";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         // Lấy token từ header
-        String token = httpServletRequest.getHeader(HEADER);
+//        String token = httpServletRequest.getHeader(HEADER);
+
+        String token=CookieUtil.getCookie(httpServletRequest,"JWT_TOKEN");
 
         // Parse thông tin từ token
         Claims claims = jwtTokenUtil.getClaimsFromToken(token);

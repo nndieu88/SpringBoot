@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -84,9 +84,6 @@
                                         Name
                                     </th>
                                     <th colspan="1">
-                                        Model
-                                    </th>
-                                    <th colspan="1">
                                         Image
                                     </th>
                                     <th colspan="1">
@@ -104,8 +101,8 @@
                                 <tr th:each="product, i : ${products}">
                                     <td colspan="1" th:text="${i.count}"></td>
                                     <td colspan="2" th:text="${product.nameProd}"></td>
-                                    <td colspan="1" th:text="${product.model}"></td>
-                                    <td colspan="1" th:text="${product.image}"></td>
+                                    <td colspan="1"><img th:src="@{${product.image}}" style="height: 40px;width: 40px">
+                                    </td>
                                     <td colspan="1" th:text="${product.price}"></td>
                                     <td colspan="1" th:text="${product.status}"></td>
                                     <td colspan="3" th:text="${product.description}"></td>
@@ -144,12 +141,26 @@
                                 <input type="text" class="form-control" id="input-category-name">
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                                <label>Model:</label>
-                                <input type="text" class="form-control" id="input-category-model">
+                                <label>Category:</label>
+                                <select class="category-id-create">
+                                    <option  th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.nameCate}"
+                                            th:attr="cateid=${category.id}"></option>
+                                </select>
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
                                 <label>Image:</label>
-                                <input type="text" class="form-control" id="input-category-image">
+                                <div class="container">
+                                    <form method="post" action="" enctype="multipart/form-data" id="myform">
+                                        <div class='preview'>
+                                            <img src="" id="image" width="40" height="40">
+                                        </div>
+                                        <div>
+                                            <input type="file" id="files" name="file"/>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
                                 <label>Price:</label>
@@ -193,12 +204,26 @@
                                 <input type="text" class="form-control" id="input-cate-name-update">
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                                <label>Model:</label>
-                                <input type="text" class="form-control" id="input-cate-model-update">
+                                <label>Category:</label>
+                                <select  class="category-id-update">
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.nameCate}"
+                                            th:attr="cateid=${category.id}"></option>
+                                </select>
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
                                 <label>Image:</label>
-                                <input type="text" class="form-control" id="input-cate-image-update">
+                                <div class="container">
+                                    <form method="post" action="" enctype="multipart/form-data" id="myform">
+                                        <div class='preview'>
+                                            <img src="" id="img" width="40" height="40">
+                                        </div>
+                                        <div>
+                                            <input type="file" id="file" name="file"/>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
                                 <label>Price:</label>
