@@ -5,6 +5,8 @@ import com.smartosc.mobile.entity.Product;
 import com.smartosc.mobile.exception.DuplicateRecordException;
 import com.smartosc.mobile.exception.InternalServerException;
 import com.smartosc.mobile.exception.NotFoundException;
+import com.smartosc.mobile.model.dto.Paging;
+import com.smartosc.mobile.model.dto.ProductDto;
 import com.smartosc.mobile.model.mapper.ProductMapper;
 import com.smartosc.mobile.model.request.CreateProduct;
 import com.smartosc.mobile.model.request.UpdateProductRequest;
@@ -13,9 +15,14 @@ import com.smartosc.mobile.repository.ProductRepository;
 import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -27,9 +34,37 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Page<Product> getAllProduct(Pageable pageable) {
-        Page<Product> products = productRepository.findAll(pageable);
-        return products;
+    public Paging getAllProduct(int page) {
+        Page<Product> products = productRepository.findAll(PageRequest.of(page, 6, Sort.by("price").descending()));
+        List<ProductDto> productDto = new ArrayList<>();
+        for (Product product : products.getContent()) {
+            productDto.add(ProductMapper.toProductDto(product));
+        }
+
+        Paging paging = new Paging();
+        paging.setContent(productDto);
+        paging.setCurrentPage(page + 1);
+        paging.setHasNext(products.hasNext());
+        paging.setHasPrev(products.hasPrevious());
+        paging.setTotalPage(products.getTotalPages());
+        return paging;
+    }
+
+    @Override
+    public Paging getAllProductByCategory(String nameCate, int page) {
+        Page<Product> products = productRepository.findAllByCategoryContaining(nameCate, PageRequest.of(page, 6, Sort.by("price").descending()));
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (Product product : products.getContent()) {
+            productDtos.add(ProductMapper.toProductDto(product));
+        }
+
+        Paging paging = new Paging();
+        paging.setContent(productDtos);
+        paging.setCurrentPage(page + 1);
+        paging.setHasNext(products.hasNext());
+        paging.setHasPrev(products.hasPrevious());
+        paging.setTotalPage(products.getTotalPages());
+        return paging;
     }
 
     @Override

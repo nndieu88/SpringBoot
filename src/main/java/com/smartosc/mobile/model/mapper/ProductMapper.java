@@ -8,6 +8,7 @@ import com.smartosc.mobile.model.request.UpdateProductRequest;
 public class ProductMapper {
     public static ProductDto toProductDto(Product product){
         ProductDto productDto=new ProductDto();
+        productDto.setId(product.getId());
         productDto.setName(product.getNameProd());
         productDto.setCate(product.getCategory().getNameCate());
         productDto.setImage(product.getImage());

@@ -2,21 +2,18 @@ package com.smartosc.mobile.controller;
 
 import com.smartosc.mobile.entity.Category;
 import com.smartosc.mobile.entity.Orders;
-import com.smartosc.mobile.entity.Product;
-import com.smartosc.mobile.model.dto.ProductDto;
+import com.smartosc.mobile.model.dto.Paging;
 import com.smartosc.mobile.model.dto.UserDto;
 import com.smartosc.mobile.service.CategoryService;
 import com.smartosc.mobile.service.OrdersService;
 import com.smartosc.mobile.service.ProductService;
 import com.smartosc.mobile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -60,18 +57,19 @@ public class AdminController {
 
     //admin-products-page
     @GetMapping("/products")
-    public String product(Model model,Pageable pageable) {
-        Page<Product> products = productService.getAllProduct(pageable);
-        List<Category> categories=categoryService.findAllCategory();
-        model.addAttribute("products",products);
-        model.addAttribute("categories",categories);
+    public String product(Model model, @RequestParam(required = false) Integer page) {
+        int currentPage = (page == null ? 0 : page - 1);
+        Paging products = productService.getAllProduct(currentPage);
+        List<Category> categories = categoryService.findAllCategory();
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         return "/admin/products";
     }
 
     //admin-orders-page
     @GetMapping("/orders")
-    public String order(Model model){
-        List<Orders> orders=ordersService.findAllOrder();
+    public String order(Model model) {
+        List<Orders> orders = ordersService.findAllOrder();
         return "/admin/order";
     }
 }

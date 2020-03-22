@@ -1,6 +1,7 @@
 package com.smartosc.mobile.controller.api;
 
 import com.smartosc.mobile.entity.Product;
+import com.smartosc.mobile.model.dto.Paging;
 import com.smartosc.mobile.model.request.CreateCategoryRequest;
 import com.smartosc.mobile.model.request.CreateProduct;
 import com.smartosc.mobile.model.request.UpdateProductRequest;
@@ -21,8 +22,9 @@ public class ApiProductController {
     private ProductService productService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllProduct(Pageable pageable) {
-        Page<Product> products = productService.getAllProduct(pageable);
+    public ResponseEntity<?> getAllProduct(@RequestParam Integer page) {
+        int currentPage = (page == null ? 0 : page - 1);
+        Paging products = productService.getAllProduct(currentPage);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

@@ -45,7 +45,8 @@ public class JwtTokenUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + duration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
-        return PREFIX + token;
+        return token;
+//        return PREFIX + token;
     }
 
     // Lấy thông tin được lưu trong token

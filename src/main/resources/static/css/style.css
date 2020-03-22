@@ -394,7 +394,7 @@ body {
 .grid_1_of_4 {
     display: block;
     float: left;
-    margin: 1% 0 1% 1%;
+    /*margin: 1% 0 1% 1%;*/
 
 }
 

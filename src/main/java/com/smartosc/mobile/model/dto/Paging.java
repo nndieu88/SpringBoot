@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
-    private Long id;
-    private String name;
-    private String image;
-    private Long price;
-    private String description;
-    private String cate;
+public class Paging {
+    private List<?> content;
+    private boolean hasNext;
+    private boolean hasPrev;
+    private int currentPage;
+    private int totalPage;
 }

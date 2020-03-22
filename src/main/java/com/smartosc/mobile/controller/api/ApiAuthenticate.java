@@ -51,7 +51,7 @@ public class ApiAuthenticate {
         //Lay thong tin currentUser
         CustomUserDetails userDetails=(CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(userDetails);
     }
 
     @GetMapping("/logout-test")

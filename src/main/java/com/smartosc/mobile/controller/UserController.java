@@ -3,14 +3,13 @@ package com.smartosc.mobile.controller;
 import com.smartosc.mobile.entity.Category;
 import com.smartosc.mobile.model.cart.Cart;
 import com.smartosc.mobile.model.counter.Counter;
+import com.smartosc.mobile.model.dto.Paging;
 import com.smartosc.mobile.service.CategoryService;
+import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
 
     @ModelAttribute("myCounter")
     public Counter setCounter() {
@@ -32,10 +34,25 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String index(@ModelAttribute("myCounter") Counter counter, @ModelAttribute("myCart") Cart car, Model model) {
+    public String index(@ModelAttribute("myCounter") Counter counter, @ModelAttribute("myCart") Cart car, Model model, @RequestParam(required = false) Integer page) {
         counter.increment();
         List<Category> categories = categoryService.findAllCategory();
         model.addAttribute("categories", categories);
+
+        int currentPage = (page == null ? 0 : page - 1);
+        Paging products = productService.getAllProduct(currentPage);
+        model.addAttribute("products", products);
+        return "/user/index";
+    }
+
+    @GetMapping("/category")
+    public String indexByCategory(Model model, @RequestParam(required = false) String nameCate, Integer page) {
+        List<Category> categories = categoryService.findAllCategory();
+        model.addAttribute("categories", categories);
+
+        int currentPage = (page == null ? 0 : page - 1);
+        Paging products=productService.getAllProductByCategory(nameCate,page);
+        model.addAttribute("products",products);
         return "/user/index";
     }
 
@@ -51,12 +68,12 @@ public class UserController {
     }
 
     @GetMapping("/cart")
-    public String cart(){
+    public String cart() {
         return "/user/cart";
     }
 
     @GetMapping("/info")
-    public String info(){
+    public String info() {
         return "/user/info";
     }
 

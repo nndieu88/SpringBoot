@@ -51,6 +51,7 @@ public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConf
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/mobile/images/**").permitAll()
 //                .antMatchers(HttpMethod.POST, "/logins").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
 //                .antMatchers(HttpMethod.POST, "/admins/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
 //                .antMatchers(HttpMethod.GET,  "/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
