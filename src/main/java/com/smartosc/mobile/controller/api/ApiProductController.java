@@ -28,6 +28,9 @@ public class ApiProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+//    @GetMapping("/cate")
+//    public ResponseEntity<?> getAll(@RequestParam Long id)
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         Optional<Product> product = productService.getProductById(id);

@@ -29,7 +29,7 @@ $(document).ready(function () {
                         swal("err");
                     });
                 }).catch(function (err) {
-                swal("Nhap hinh vao");
+                swal("Nhap hinh vao!");
             })
         });
     });
@@ -43,7 +43,6 @@ $(document).ready(function () {
         axios.get("http://localhost:8080/admins/products/" + id)
             .then(function (data) {
                 $("#input-cate-name-update").val(data.data.nameProd);
-                $("#img").attr("src", data.data.image);
                 $("#input-cate-price-update").val(data.data.price);
                 $("#input-cate-status-update").val(data.data.status);
                 $("#input-cate-decription-update").val(data.data.description);
@@ -62,7 +61,7 @@ $(document).ready(function () {
                 update(id, dataProduct);
             } else {
                 var form = new FormData;
-                form.append("file", $("#file")[0].files[0])
+                form.append("file", $("#file")[0].files[0]);
                 axios.post("http://localhost:8080/upload", form)
                     .then(function (data) {
                         dataProduct.image = data.data;

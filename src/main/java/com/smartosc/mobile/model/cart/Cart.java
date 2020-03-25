@@ -21,23 +21,19 @@ public class Cart {
     @Autowired
     private ProductService productService;
 
-    private Long price = 0l;
-
     private int count = 0;
 
     private Map<Long, Product> cart = new HashMap<>();
 
     public void addProduct(Product product) {
         cart.put(product.getId(), product);
-        price += product.getPrice();
-        count++;
+        count = cart.size();
+
     }
 
     public void deleteProduct(Long id) {
         cart.remove(id);
-        Product product = productService.getProductById(id).get();
-        price -= product.getPrice();
-        count--;
+        count = cart.size();
     }
 
     public List<Product> getCart() {
@@ -45,7 +41,11 @@ public class Cart {
     }
 
     public Long totalPrice() {
+        Long price = 0L;
+        List<Product> products = new ArrayList<>(cart.values());
+        for (Product product : products) {
+            price += product.getPrice();
+        }
         return price;
     }
-
 }

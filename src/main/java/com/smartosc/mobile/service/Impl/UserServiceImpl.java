@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         if (!user.isPresent()) {
             throw new NotFoundException("Not found user");
         }
-        User user1 = UserMapper.toUser(updateUserRequest, id, user.get().getCreateDate(),user.get().getRole());
+        User user1 = UserMapper.toUser(updateUserRequest, id, user.get().getCreateDate(), user.get().getRole(), user.get().getPassword());
         try {
             userRepository.save(user1);
         } catch (Exception ex) {

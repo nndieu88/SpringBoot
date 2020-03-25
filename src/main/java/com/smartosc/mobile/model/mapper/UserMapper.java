@@ -43,7 +43,7 @@ public class UserMapper {
         return user;
     }
 
-    public static User toUser(UpdateUserRequest uur, Long id, Date date, Role role) {
+    public static User toUser(UpdateUserRequest uur, Long id, Date date, Role role, String password) {
         User user = new User();
 
         user.setId(id);
@@ -52,14 +52,14 @@ public class UserMapper {
         user.setPhone(uur.getPhone());
         user.setAvatar(uur.getAvatar());
         user.setEmail(uur.getEmail());
-        user.setPassword(uur.getPassword());
+        user.setPassword(password);
         user.setRole(role);
         user.setStatus(false);
         user.setCreateDate(date);
         user.setUpdateDate(new Date());
 
-        String hash= BCrypt.hashpw(uur.getPassword(),BCrypt.gensalt(12));
-        user.setPassword(hash);
+//        String hash= BCrypt.hashpw(uur.getPassword(),BCrypt.gensalt(12));
+//        user.setPassword(hash);
 
         return user;
     }

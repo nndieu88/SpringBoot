@@ -7,7 +7,9 @@
           content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
     <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet'
           type='text/css'>
-    <link rel="stylesheet" href="css/responsiveslides.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/responsiveslides.min.js"></script>
     <script>
@@ -27,16 +29,18 @@
     <!----start-Header---->
     <div class="header">
         <div class="search-bar">
-            <form>
-                <input type="text"><input type="submit" value="Search"/>
+            <form th:method="get" th:action="@{/mobile/search (name=${search})}">
+                <input th:name="name" th:value="${search}" type="text">
+                <input type="submit" value="Search"/>
             </form>
         </div>
         <div class="clear"></div>
         <div class="header-top-nav">
             <ul>
+                <li th:if="${isUser} == true"><p>Xin chào </p><span th:text="${currentUser.getEmail()}"></span></li>
                 <li><a th:href="@{/mobile/register}">Register</a></li>
                 <li><a th:href="@{/mobile/login}">Login</a></li>
-                <li><a th:href="@{/mobile/index}">Checkout</a></li>
+                <li><a th:href="@{/mobile/logout}">Logout</a></li>
                 <li><a th:href="@{/mobile/cart}"><span>shopping cart&nbsp;&nbsp;: </span></a><label
                         th:text="${myCart.getCount()}"> </label></li>
                 <li><span>view: </span><label th:text="${myCounter.getCount()}"></label></li>
@@ -56,7 +60,7 @@
         <!----start-top-nav---->
         <div class="top-nav">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a th:href="@{/mobile}">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="store.html">Store</a></li>
                 <li><a href="store.html">Featured</a></li>
@@ -90,26 +94,25 @@
             <h4>Deals of the day</h4>
             <div class="section group">
                 <div class="grid_1_of_4 images_1_of_4 products-info" th:each="product:${products.content}">
-                    <a th:href="@{/mobile/info}"><img th:src="@{${product.image}}"></a>
-                    <a th:href="@{/mobile/info}"><span th:text="${product.name}"></span></a>
+                    <a th:href="@{/mobile/info/__${product.id}__}"><img th:src="@{${product.image}}"></a>
+                    <a th:href="@{/mobile/info/__${product.id}__}"><span th:text="${product.name}"></span></a>
                     <h3 th:text="${product.price}"></h3>
                 </div>
             </div>
             <div class="topassda">
-                <a th:href="@{'/mobile'( page=${products.currentPage -1})}"
+                <a class="button-prev" th:href="@{'/mobile'( page=${products.currentPage -1})}"
                    th:if="${products.hasPrev}">Previous</a>
                 <span th:text="${products.currentPage}"></span>/<span th:text="${products.totalPage}"></span>
-                <a th:href="@{'/mobile'( page=${products.currentPage + 1})}"
+                <a class="button-next" th:href="@{'/mobile'( page=${products.currentPage + 1})}"
                    th:if="${products.hasNext}">Next</a>
             </div>
         </div>
-
 
         <div class="content-sidebar">
             <h4>Categories</h4>
             <ul>
                 <li th:each="category:${categories}">
-                    <a th:href="@{'/mobile/category'( nameCate=${category.nameCate})}" th:text="${category.nameCate}"></a>
+                    <a class="button-cate" th:href="@{'/mobile/category'( id=${category.id})}" th:text="${category.nameCate}"></a>
                 </li>
             </ul>
         </div>
@@ -126,6 +129,11 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script th:src="@{/js/click.js}"></script>
+
 </body>
 </html>
 

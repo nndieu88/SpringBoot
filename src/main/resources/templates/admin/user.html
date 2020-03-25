@@ -211,10 +211,7 @@
                             <div class="form-group margin-bottom-15" style="margin-top: 20px">
                                 <label>Avatar:</label>
                                 <div class="container">
-                                    <form method="post" action="" enctype="multipart/form-data" id="myform">
-                                        <div class='preview'>
-                                            <img src="http://placehold.it/180" id="img" width="40" height="40">
-                                        </div>
+                                    <form enctype="multipart/form-data">
                                         <div>
                                             <input type="file" id="file" name="file" onchange="readURL(this);"/>
                                         </div>
@@ -225,12 +222,6 @@
                                 <label>Email:</label>
                                 <input type="email" required class="form-control" id="input-cate-email-update">
                             </div>
-                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                                <label>Password:</label>
-                                <input type="password" minlength="6" required class="form-control"
-                                       id="input-cate-password-update">
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary bnt-close" data-dismiss="modal">Close
@@ -269,7 +260,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-<!--<script th:src="@{/js/admin-category.js}"></script>-->
 <script th:src="@{/js/admin-user.js}"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.smartosc.mobile.controller.api;
 
+import com.smartosc.mobile.model.dto.UserDto;
+import com.smartosc.mobile.model.mapper.UserMapper;
 import com.smartosc.mobile.model.request.AuthenticationRequest;
 import com.smartosc.mobile.security.CookieUtil;
 import com.smartosc.mobile.security.CustomUserDetails;
@@ -28,7 +30,7 @@ public class ApiAuthenticate {
 
     private final String NAME_TOKEN = "JWT_TOKEN";
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest req, HttpServletResponse res) {
         // Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
@@ -48,15 +50,15 @@ public class ApiAuthenticate {
         // Luu cookie
         CookieUtil.create(res, NAME_TOKEN, token);
 
-        //Lay thong tin currentUser
-        CustomUserDetails userDetails=(CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return ResponseEntity.ok(userDetails);
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String role = userDetails.getUser().getRole().getNameRole();
+
+        return ResponseEntity.ok(role);
     }
 
-    @GetMapping("/logout-test")
-    public ResponseEntity<?> logout(HttpServletResponse res) {
-        CookieUtil.clear(res, NAME_TOKEN);
-        return ResponseEntity.ok("Logout successfull");
+    @GetMapping("/current-user")
+    public ResponseEntity<?> getCurrentUser() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(UserMapper.toUserDto(userDetails.getUser()));
     }
 }

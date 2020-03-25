@@ -4,11 +4,14 @@ import com.smartosc.mobile.entity.Category;
 import com.smartosc.mobile.entity.Orders;
 import com.smartosc.mobile.model.dto.Paging;
 import com.smartosc.mobile.model.dto.UserDto;
+import com.smartosc.mobile.model.mapper.UserMapper;
+import com.smartosc.mobile.security.CustomUserDetails;
 import com.smartosc.mobile.service.CategoryService;
 import com.smartosc.mobile.service.OrdersService;
 import com.smartosc.mobile.service.ProductService;
 import com.smartosc.mobile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +38,8 @@ public class AdminController {
 
     //admin-page
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        isUser(model);
         return "/admin/home";
     }
 
@@ -70,6 +74,20 @@ public class AdminController {
     @GetMapping("/orders")
     public String order(Model model) {
         List<Orders> orders = ordersService.findAllOrder();
+        model.addAttribute("orders",orders);
         return "/admin/order";
+    }
+
+
+    public void isUser(Model model) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("isUser", true);
+            addUser(model);
+        }
+    }
+
+    public void addUser(Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("currentUser", UserMapper.toUserDto(userDetails.getUser()));
     }
 }

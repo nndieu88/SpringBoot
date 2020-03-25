@@ -24,7 +24,7 @@ public class Product {
 
     private String nameProd;
 
-//    @Type(type = "json")
+    //    @Type(type = "json")
 //    @Column(columnDefinition = "json")
 //    private ArrayList<String> image;
     private String image;
@@ -35,7 +35,12 @@ public class Product {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Category category;
+
+    @Override
+    public String toString() {
+        return "name_product: " + getNameProd() + ", price: " + getPrice() + "; ";
+    }
 }

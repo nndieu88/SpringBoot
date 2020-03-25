@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtil {
     public static void create(HttpServletResponse res, String name, String value) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setHttpOnly(true);
         cookie.setMaxAge(60 * 60 * 24);
         cookie.setPath("/");
         res.addCookie(cookie);
@@ -17,7 +16,6 @@ public class CookieUtil {
 
     public static void clear(HttpServletResponse res, String name) {
         Cookie cookie = new Cookie(name, null);
-        cookie.setHttpOnly(true);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         res.addCookie(cookie);

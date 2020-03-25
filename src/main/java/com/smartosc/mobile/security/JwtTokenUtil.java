@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Component
 public class JwtTokenUtil {
-    public static final String PREFIX = "Bearer ";
+//    public static final String PREFIX = "Bearer ";
 
     // Token có hạn trong vòng 24 giờ kể từ thời điểm tạo, thời gian tính theo giây
     @Value("${jwt.duration}")
@@ -26,13 +26,13 @@ public class JwtTokenUtil {
     private String secret;
 
     // Sinh token
-    public String generateToken(CustomUserDetails user) {
+    public String generateToken(UserDetails user) {
         // Lưu thông tin Authorities của user vào claims
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getUser().getId());
-        claims.put("name", user.getUser().getNameUser());
-        claims.put("email", user.getUser().getEmail());
-        claims.put("role", user.getUser().getRole().getNameRole());
+//        claims.put("id", user.getUser().getId());
+//        claims.put("name", user.getUser().getNameUser());
+//        claims.put("email", user.getUser().getEmail());
+//        claims.put("role", user.getUser().getRole().getNameRole());
 
         // 1. Định nghĩa các claims: issuer, expiration, subject, id
         // 2. Mã hóa token sử dụng thuật toán HS512 và key bí mật
@@ -52,9 +52,9 @@ public class JwtTokenUtil {
     // Lấy thông tin được lưu trong token
     public Claims getClaimsFromToken(String token) {
         // Kiểm tra token có bắt đầu bằng tiền tố
-        if (token == null || !token.startsWith(PREFIX)) return null;
+        if (token == null) return null;
 
-        token = token.replace(PREFIX, "");
+//        token = token.replace(PREFIX, "");
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 }

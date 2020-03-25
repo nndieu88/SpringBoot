@@ -1,12 +1,15 @@
 package com.smartosc.mobile.service.Impl;
 
 import com.smartosc.mobile.entity.Orders;
+import com.smartosc.mobile.exception.InternalServerException;
 import com.smartosc.mobile.exception.NotFoundException;
 import com.smartosc.mobile.repository.OrdersRepository;
 import com.smartosc.mobile.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +34,13 @@ public class OrdersSreviceImpl implements OrdersService {
     }
 
     @Override
-    public Orders createOrder(Orders order) {
-
-        return null;
+    public void createOrder(Orders order) {
+        order.setDateOrder(new Date());
+        try {
+            ordersRepository.save(order);
+        } catch (Exception ex) {
+            throw new InternalServerException("Can't save order");
+        }
     }
 
     @Override

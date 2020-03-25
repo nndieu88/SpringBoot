@@ -162,7 +162,7 @@ input.checkbox:checked:after {
     margin-top: 2.5em;
 }
 /*-- //checkbox --*/
-.login-form input[type="submit"] {
+.login-form input[type="button"] {
     font-size: 1em;
     color: #fff;
     background: #F44336;

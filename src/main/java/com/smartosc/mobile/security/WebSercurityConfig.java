@@ -16,7 +16,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConfigurerAdapter {
+public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoit jwtAuthenticationEntryPoint;
 
@@ -52,16 +52,20 @@ public class WebSercurityConfig<CustomUserDetailService> extends WebSecurityConf
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/mobile/images/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/logins").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
+                .antMatchers("/mobile/info/images/**").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN") // Api đăng nhập đăng kí không cần kiểm tra xác thực
 //                .antMatchers(HttpMethod.POST, "/admins/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
 //                .antMatchers(HttpMethod.GET,  "/users").permitAll() // Api đăng nhập đăng kí không cần kiểm tra xác thực
                 .anyRequest().permitAll()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
+                .and()
+                .formLogin()
+                .loginPage("/mobile/login")
+                .and()
+                .logout()
+                .logoutUrl("/mobile/logout")
+                .logoutSuccessUrl("/mobile")
+                .deleteCookies("JWT_TOKEN")
+                .invalidateHttpSession(true)
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)

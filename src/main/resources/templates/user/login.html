@@ -1,22 +1,11 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Creative Multiple Forms Flat Responsive Widget Template :: w3layouts</title>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
     <!-- Custom Theme files -->
     <link href="css/style2.css" rel="stylesheet" type="text/css" media="all"/>
 <!---->
@@ -34,8 +23,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="agile-row">
                 <h2>Login</h2>
                 <div class="login-agileits-top">
-                    <form action="#" method="post">
-                        <p>User Name </p>
+                    <form>
+                        <p>Email </p>
                         <input type="text" class="name" name="user name" required=""/>
                         <p>Password</p>
                         <input type="password" class="password" name="Password" required=""/>
@@ -43,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <input type="checkbox" class="checkbox">
                             <span> Remember me ?</span>
                         </label>
-                        <input type="submit" value="Sign In">
+                        <input class="login-user" type="button" value="Sign In">
                     </form>
                 </div>
                 <div class="login-agileits-bottom">
@@ -57,5 +46,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //main -->
 <!-- copyright -->
 <!-- //copyright -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script th:src="@{/js/user-login.js}"></script>
 </body>
 </html>

@@ -16,9 +16,7 @@ import com.smartosc.mobile.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Paging getAllProduct(int page) {
-        Page<Product> products = productRepository.findAll(PageRequest.of(page, 6, Sort.by("price").descending()));
+        Page<Product> products = productRepository.findAll(PageRequest.of(page, 8, Sort.by("price").descending()));
         List<ProductDto> productDto = new ArrayList<>();
         for (Product product : products.getContent()) {
             productDto.add(ProductMapper.toProductDto(product));
@@ -51,8 +49,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Paging getAllProductByCategory(String nameCate, int page) {
-        Page<Product> products = productRepository.findAllByCategoryContaining(nameCate, PageRequest.of(page, 6, Sort.by("price").descending()));
+    public Paging getAllProductByCategory(Integer id, int page) {
+        Page<Product> products = productRepository.findAllByCate(id, PageRequest.of(page, 8, Sort.by("price").descending()));
         List<ProductDto> productDtos = new ArrayList<>();
         for (Product product : products.getContent()) {
             productDtos.add(ProductMapper.toProductDto(product));
@@ -64,6 +62,23 @@ public class ProductServiceImpl implements ProductService {
         paging.setHasNext(products.hasNext());
         paging.setHasPrev(products.hasPrevious());
         paging.setTotalPage(products.getTotalPages());
+        return paging;
+    }
+
+    @Override
+    public Paging getAllByName(String name, int page) {
+        Page<Product> products = productRepository.findAllByName(name, PageRequest.of(page, 8, Sort.by("price").descending()));
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (Product product : products.getContent()) {
+            productDtos.add(ProductMapper.toProductDto(product));
+        }
+
+        Paging paging = new Paging();
+        paging.setContent(productDtos);
+        paging.setCurrentPage(page + 1);
+        paging.setTotalPage(products.getTotalPages());
+        paging.setHasPrev(products.hasPrevious());
+        paging.setHasNext(products.hasNext());
         return paging;
     }
 
@@ -113,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             productRepository.deleteById(id);
         } catch (Exception ex) {
-            throw new InternalServerException("Can't delete product");
+            throw new InternalServerException(ex.getMessage());
         }
     }
 }

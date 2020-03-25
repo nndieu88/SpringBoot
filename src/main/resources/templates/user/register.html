@@ -1,16 +1,10 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Creative Multiple Forms Flat Responsive Widget Template :: w3layouts</title>
+<title>Register</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
 <link href="css/style2.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //Custom Theme files -->
@@ -21,14 +15,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 	<!-- main -->
 	<div class="main">
-		<h1>Creative Multiple Forms</h1>
 		<div class="main-w3lsrow">
 			<!-- sign up form -->
 			<div class="login-form agileits-left">
 				<div class="agile-row">
 					<h3>SignUp !</h3> 
 					<div class="login-agileits-top"> 	
-						<form action="#" method="post"> 
+						<form>
 							<p>User Name </p>
 							<input type="text" class="name" name="user name" required=""/>
 							<p>Email</p>
@@ -39,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<input type="checkbox" class="checkbox">
 								<span> Remember me ?</span> 
 							</label>   
-							<input type="submit" value="Sign Up">
+							<input class="register-user" type="button" value="Sign Up">
 						</form> 	
 					</div>  
 				</div>  
@@ -52,6 +45,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="copyright">
 		<p> © 2016 Creative Multiple Forms . All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
 	</div>
-	<!-- //copyright --> 
+	<!-- //copyright -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+	<script th:src="@{/js/user-register.js}"></script>
 </body>
 </html>

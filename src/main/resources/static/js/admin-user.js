@@ -19,7 +19,7 @@ $(document).ready(function () {
                 .then(function (data) {
                     swal("successful");
                 }).catch(function (err) {
-                    swal("error")
+                swal("error")
             });
         });
     });
@@ -35,10 +35,9 @@ $(document).ready(function () {
                 $("#input-cate-name-update").val(data.data.name);
                 $("#input-cate-address-update").val(data.data.address);
                 $("#input-cate-phone-update").val(data.data.phone);
-                $('#img').attr('src', data.data.avatar);
+                // $('#img').attr('src', data.data.avatar);
                 img = data.data.avatar;
                 $("#input-cate-email-update").val(data.data.email);
-                $("#input-cate-password-update").val(data.data.password);
             });
 
 
@@ -47,7 +46,6 @@ $(document).ready(function () {
             dataUser.address = $("#input-cate-address-update").val();
             dataUser.phone = $("#input-cate-phone-update").val();
             dataUser.email = $("#input-cate-email-update").val();
-            dataUser.password = $("#input-cate-password-update").val();
 
             if ($("#file")[0].files.length === 0) {
                 dataUser.avatar = img;
