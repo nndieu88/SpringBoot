@@ -104,7 +104,7 @@
                                     <td colspan="2" th:text="${order.nameUser}"></td>
                                     <td colspan="2" th:text="${order.phone}"></td>
                                     <td colspan="2" th:text="${order.nameProd}"></td>
-                                    <td colspan="2" th:text="${order.price}"></td>
+                                    <td colspan="2" th:text="${#numbers.formatCurrency(order.price)}"></td>
                                     <td colspan="2"
                                         th:text="${#dates.format(order.dateOrder, 'dd-MM-yyyy HH:mm:ss')}"></td>
 <!--                                    <td colspan="1">-->

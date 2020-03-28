@@ -27,6 +27,7 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*--end reset--*/
+
 body {
     font-family: 'Roboto Condensed', sans-serif;
 	background-image: linear-gradient(to left, rgb(178, 69, 146), rgb(241, 95, 121));
@@ -53,6 +54,7 @@ h1 {
 	text-align: center;
 }
 .main-w3lsrow {
+    padding-left: 30%;
     width: 51%;
     margin: 0 auto;
 }
@@ -81,7 +83,7 @@ h1 {
 	-ms-border-radius: 15px;
     border-radius: 15px;
 }
-.login-form input[type="text"], .login-form input[type="password"] {
+.login-form input[type="text"],.login-form input[type="email"], .login-form input[type="password"] {
     outline: none;
     font-size: 1em;
     color: #000;

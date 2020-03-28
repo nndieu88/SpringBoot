@@ -36,25 +36,21 @@
             </div>
             <div class="product-right1">
                 <label>Price</label>
-                <p th:text="${product.price}"></p>
-                <form th:method="get" th:action="@{'/mobile/cart/{id}' (id=${product.id}) }">
-                    <button class="close"></button>
-                </form>
+                <p th:text="${#numbers.formatCurrency(product.price)}"></p>
+<!--                <form th:method="get" th:action="@{'/mobile/cart/{id}' (id=${product.id}) }">-->
+                    <div class="close" th:attr="prodid=${product.id}"></div>
+<!--                </form>-->
 
             </div>
             <div class="clear"></div>
         </div>
         <div class="product-bottom">
-            <h3>Total : <span th:attr="price=${myCart.totalPrice()}" th:text="${myCart.totalPrice()}"></span></h3>
-            <a id="btn-order" th:attr="name=${nameProd}" >Order</a>
+            <h3 class="total-price" th:attr="price=${myCart.totalPrice()}">Total : <span  th:text="${#numbers.formatCurrency(myCart.totalPrice())}"></span></h3>
+            <a id="btn-order"  th:attr="name=${nameProd}" >Order</a>
             <a th:href="@{/mobile}">Back</a>
             <div class="clear">
             </div>
         </div>
-    </div>
-    <div class="footer">
-        <p>&copy 2016 Products In Cart . All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a>
-        </p>
     </div>
 </div>
 <!---main--->

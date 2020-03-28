@@ -40,6 +40,8 @@ public class UserController {
     @GetMapping("")
     public String index(@ModelAttribute("myCounter") Counter counter, @ModelAttribute("myCart") Cart car, Model model, @RequestParam(required = false) Integer page) {
         counter.increment();
+
+        model.addAttribute("isMobile", true);
         List<Category> categories = categoryService.findAllCategory();
         model.addAttribute("categories", categories);
 
@@ -52,28 +54,36 @@ public class UserController {
     }
 
     @GetMapping("/category")
-    public String indexByCategory(Model model, @RequestParam(required = false) Integer id,@RequestParam(required = false) Integer page) {
+    public String indexByCategory(Model model, @RequestParam(required = false) Integer cateid,
+                                  @RequestParam(required = false) Integer page) {
+        model.addAttribute("isCate", true);
+
         List<Category> categories = categoryService.findAllCategory();
         model.addAttribute("categories", categories);
 
         int currentPage = (page == null ? 0 : page - 1);
-        Paging products = productService.getAllProductByCategory(id, currentPage);
+        Paging products = productService.getAllProductByCategory(cateid, currentPage);
         model.addAttribute("products", products);
+        model.addAttribute("cateid", cateid);
 
         isUser(model);
         return "/user/index";
     }
 
     @GetMapping("/search")
-    public String indexByName(Model model, @RequestParam(required = false) String name,Integer page){
+    public String indexByName(Model model,
+                              @RequestParam(required = false) String key,
+                              Integer page) {
+        model.addAttribute("isSearch", true);
+
         List<Category> categories = categoryService.findAllCategory();
         model.addAttribute("categories", categories);
 
         int currentPage = (page == null ? 0 : page - 1);
-        Paging products = productService.getAllByName(name, currentPage);
+        Paging products = productService.getAllByName(key, currentPage);
         model.addAttribute("products", products);
 
-        model.addAttribute("search",name);
+        model.addAttribute("key", key);
 
         isUser(model);
         return "/user/index";
@@ -128,15 +138,20 @@ public class UserController {
         return "redirect:/mobile/cart";
     }
 
-    public void isUser(Model model){
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
-            model.addAttribute("isUser",true);
+    @GetMapping("/404")
+    public String err404(){
+        return "user/404";
+    }
+
+    public void isUser(Model model) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("isUser", true);
             addUser(model);
         }
     }
 
-    public void addUser(Model model){
-        CustomUserDetails userDetails=(CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("currentUser",UserMapper.toUserDto(userDetails.getUser()));
+    public void addUser(Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("currentUser", UserMapper.toUserDto(userDetails.getUser()));
     }
 }

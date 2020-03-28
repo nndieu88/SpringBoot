@@ -12,6 +12,12 @@
             crossorigin="anonymous"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/responsiveslides.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
     <script>
         // You can also use "$(window).load(function() {"
         $(function () {
@@ -29,22 +35,81 @@
     <!----start-Header---->
     <div class="header">
         <div class="search-bar">
-            <form th:method="get" th:action="@{/mobile/search (name=${search})}">
-                <input th:name="name" th:value="${search}" type="text">
-                <input type="submit" value="Search"/>
+            <form th:method="get" th:action="@{/mobile/search}">
+                <input th:name="key" th:value="${key}" type="text">
+                <input type="submit" value="Search..."/>
             </form>
         </div>
         <div class="clear"></div>
         <div class="header-top-nav">
             <ul>
-                <li th:if="${isUser} == true"><p>Xin chào </p><span th:text="${currentUser.getEmail()}"></span></li>
-                <li><a th:href="@{/mobile/register}">Register</a></li>
-                <li><a th:href="@{/mobile/login}">Login</a></li>
-                <li><a th:href="@{/mobile/logout}">Logout</a></li>
+                <li data-toggle="modal" th:if="${isUser} == true"><a class="btn-update" data-toggle="modal"
+                                                                     href="" th:text="${currentUser.getEmail()}"></a>
+                </li>
+                <li th:if="${isUser} != true"><a th:href="@{/mobile/register}">Register</a></li>
+                <li th:if="${isUser} != true"><a th:href="@{/mobile/login}">Login</a></li>
+                <li th:if="${isUser} == true"><a th:href="@{/mobile/logout}">Logout</a></li>
                 <li><a th:href="@{/mobile/cart}"><span>shopping cart&nbsp;&nbsp;: </span></a><label
                         th:text="${myCart.getCount()}"> </label></li>
                 <li><span>view: </span><label th:text="${myCounter.getCount()}"></label></li>
             </ul>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-update-cate" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cập nhật danh mục</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                    <label>Full name:</label>
+                                    <input type="text" minlength="6" required class="form-control"
+                                           id="input-cate-name-update">
+                                </div>
+                                <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                    <label>Address:</label>
+                                    <input type="text" minlength="4" required class="form-control"
+                                           id="input-cate-address-update">
+                                </div>
+                                <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                    <label>Phone:</label>
+                                    <input type="text" pattern="(09|01[2|6|8|9])+([0-9]{8})\\\\b" class="form-control"
+                                           id="input-cate-phone-update">
+                                </div>
+                                <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                    <label>Avatar:</label>
+                                    <div class="container">
+                                        <form enctype="multipart/form-data">
+                                            <div>
+                                                <input type="file" id="file" name="file" onchange="readURL(this);"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                    <label>Email:</label>
+                                    <input type="email" required class="form-control" id="input-cate-email-update">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary bnt-close" data-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="btn-update-cate">Update changes
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
         <div class="clear"></div>
     </div>
@@ -96,14 +161,30 @@
                 <div class="grid_1_of_4 images_1_of_4 products-info" th:each="product:${products.content}">
                     <a th:href="@{/mobile/info/__${product.id}__}"><img th:src="@{${product.image}}"></a>
                     <a th:href="@{/mobile/info/__${product.id}__}"><span th:text="${product.name}"></span></a>
-                    <h3 th:text="${product.price}"></h3>
+                    <h3 th:text="${#numbers.formatCurrency(product.price)}"></h3>
                 </div>
             </div>
-            <div class="topassda">
+            <div class="paging" th:if="${isMobile} == true">
                 <a class="button-prev" th:href="@{'/mobile'( page=${products.currentPage -1})}"
                    th:if="${products.hasPrev}">Previous</a>
                 <span th:text="${products.currentPage}"></span>/<span th:text="${products.totalPage}"></span>
                 <a class="button-next" th:href="@{'/mobile'( page=${products.currentPage + 1})}"
+                   th:if="${products.hasNext}">Next</a>
+            </div>
+            <div class="paging" th:if="${isCate} == true">
+                <a class="button-prev"
+                   th:href="@{'/mobile/category'(cateid=${cateid}, page=${products.currentPage -1})}"
+                   th:if="${products.hasPrev}">Previous</a>
+                <span th:text="${products.currentPage}"></span>/<span th:text="${products.totalPage}"></span>
+                <a class="button-next"
+                   th:href="@{'/mobile/category'(cateid=${cateid}, page=${products.currentPage + 1})}"
+                   th:if="${products.hasNext}">Next</a>
+            </div>
+            <div class="paging" th:if="${isSearch} == true">
+                <a class="button-prev" th:href="@{'/mobile/search'(key=${key}, page=${products.currentPage -1})}"
+                   th:if="${products.hasPrev}">Previous</a>
+                <span th:text="${products.currentPage}"></span>/<span th:text="${products.totalPage}"></span>
+                <a class="button-next" th:href="@{'/mobile/search'(key=${key}, page=${products.currentPage + 1})}"
                    th:if="${products.hasNext}">Next</a>
             </div>
         </div>
@@ -112,28 +193,19 @@
             <h4>Categories</h4>
             <ul>
                 <li th:each="category:${categories}">
-                    <a class="button-cate" th:href="@{'/mobile/category'( id=${category.id})}" th:text="${category.nameCate}"></a>
+                    <a class="button-cate" th:href="@{'/mobile/category'( cateid=${category.id})}"
+                       th:text="${category.nameCate}"></a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="clear"></div>
 </div>
-<div class="footer">
 
-    <div class="clear"></div>
-    <div class="wrap">
-        <div class="copy-right">
-            <p>&copy; 2013 Mobile Store. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3Layouts</a>
-            </p>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-<script th:src="@{/js/click.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
+<script th:src="@{/js/user-update.js}"></script>
 </body>
 </html>
 

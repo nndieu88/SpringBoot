@@ -33,6 +33,7 @@ public class Product {
 
     private String status;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne
@@ -41,6 +42,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "name_product: " + getNameProd() + ", price: " + getPrice() + "; ";
+        return getNameProd() + ": " + getPrice() + "; ";
     }
 }

@@ -59,8 +59,8 @@
             <div class="content-wrapper">
                 <div class="page-header">
                     <h1>Product Management</h1>
-                    <form class="form-inline my-2 my-lg-0" method="get">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline my-2 my-lg-0"  th:method="get" th:action="@{/mobile/search}">
+                        <input class="form-control mr-sm-2" th:name="key" th:value="${key}" type="text">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -103,7 +103,7 @@
                                     <td colspan="2" th:text="${product.name}"></td>
                                     <td colspan="1"><img th:src="@{${product.image}}" style="height: 40px;width: 40px">
                                     </td>
-                                    <td colspan="1" th:text="${product.price}"></td>
+                                    <td colspan="1" th:text="${#numbers.formatCurrency(product.price)}"></td>
                                     <td colspan="1" th:text="${product.cate}"></td>
                                     <td colspan="3" th:text="${product.description}"></td>
                                     <td colspan="1">

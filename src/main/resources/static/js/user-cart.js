@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $("#btn-order").on("click", function () {
         dataOrder.nameProd = $(this).attr("name");
-        dataOrder.price = $(this).attr("price");
+        dataOrder.price = $(".total-price").attr("price");
 
         axios.get("http://localhost:8080/current-user")
             .then(function (data) {
@@ -21,5 +21,17 @@ $(document).ready(function () {
             swal("Vui lòng đăng nhập để thanh toán",
                 "http://localhost:8080/mobile/register");
         })
+    });
+
+
+    $(".close").on("click", function () {
+        var id = $(this).attr("prodid");
+        if (confirm("Bạn có muốn xóa không ?")) {
+            axios.get("http://localhost:8080/mobile/cart/" + id)
+                .then(function () {
+                    swal("successful");
+                    location.reload();
+                })
+        }
     })
 });

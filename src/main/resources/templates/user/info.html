@@ -27,8 +27,9 @@
     <!----start-Header---->
     <div class="header">
         <div class="search-bar">
-            <form>
-                <input type="text"><input type="submit" value="Search"/>
+            <form th:method="get" th:action="@{/mobile/search}">
+                <input th:name="key" th:value="${key}" type="text">
+                <input type="submit" value="Search..."/>
             </form>
         </div>
         <div class="clear"></div>
@@ -103,7 +104,7 @@
                     <div class="left-value-details">
                         <ul>
                             <li>Price:</li>
-                            <li><h5 th:text="${product.price}"></h5></li>
+                            <li><h5 th:text="${#numbers.formatCurrency(product.price)}"></h5></li>
                             <br/>
 
                         </ul>
@@ -129,46 +130,20 @@
 
             </div>
             <div class="clear"></div>
-            <div class="menu_container">
-                <p class="menu_head">Lorem Ipsum<span class="plusminus">+</span></p>
-                <div class="menu_body" style="display: none;">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of
-                        Lorem Ipsum.</p>
-                </div>
-                <p class="menu_head">About Product<span class="plusminus">+</span></p>
-                <div class="menu_body" style="display: none;">
-                    <p>theonlytutorials.com is providing a great varitey of tutorials and scripts to use it immediate on
-                        any project!</p>
-                </div>
-            </div>
         </div>
 
         <div class="content-sidebar">
             <h4>Categories</h4>
             <ul>
                 <li th:each="category:${categories}">
-                    <a th:href="@{'/mobile/category'( id=${category.id})}" th:text="${category.nameCate}"></a>
+                    <a th:href="@{'/mobile/category'( cateid=${category.id})}" th:text="${category.nameCate}"></a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="clear"></div>
 </div>
-<div class="footer">
 
-    <div class="clear"></div>
-    <div class="wrap">
-        <div class="copy-right">
-            <p>&copy; 2013 Mobile Store. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3Layouts</a>
-            </p>
-        </div>
-    </div>
-</div>
 </body>
 </html>
 

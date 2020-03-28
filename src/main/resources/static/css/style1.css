@@ -17330,7 +17330,7 @@ input:focus {
   background: #ffffff;
   font-family: "ubuntu-regular", sans-serif;
   padding: 0;
-  width: 260px;
+  width: 160px;
   z-index: 11;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;

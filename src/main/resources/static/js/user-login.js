@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var data = {};
     $(".login-user").on("click", function () {
-        data.email = $(".name").val();
+        data.email = $(".email").val();
         data.password = $(".password").val();
 
         axios.post("http://localhost:8080/login", data)
@@ -12,7 +12,7 @@ $(document).ready(function () {
                     location.replace("/mobile");
                 }
             }).catch(function () {
-            swal("Tài khoản sai, vui lòng nhập lại")
+            // swal("Tài khoản sai, vui lòng nhập lại")
         })
     })
 });
