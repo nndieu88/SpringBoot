@@ -165,7 +165,7 @@ input.checkbox:checked:after {
 }
 /*-- //checkbox --*/
 .login-form input[type="button"] {
-    font-size: 1em;
+    font-size: 1em ;
     color: #fff;
     background: #F44336;
     border: 1px solid #F44336;

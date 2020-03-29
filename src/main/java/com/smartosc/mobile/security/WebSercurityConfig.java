@@ -68,8 +68,8 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and()
                 .exceptionHandling()
-//                .accessDeniedPage("/mobile/404")
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedPage("/mobile/404")
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Không sử dụng session lưu lại trạng thái của principal

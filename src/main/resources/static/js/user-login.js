@@ -12,7 +12,7 @@ $(document).ready(function () {
                     location.replace("/mobile");
                 }
             }).catch(function () {
-            // swal("Tài khoản sai, vui lòng nhập lại")
+            swal("Tài khoản sai, vui lòng nhập lại")
         })
     })
 });

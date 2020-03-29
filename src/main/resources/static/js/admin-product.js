@@ -2,13 +2,6 @@ $(document).ready(function () {
     var dataProduct = {};
     var dataCate = {};
 
-    // $(".description-prod").on("mouseover", function () {
-    //     $(".description-detail").show();
-    // });
-    // $(".description-prod").on("mouseout", function () {
-    //     $(".description-detail").hide();
-    // });
-
     $(".close, #btn-close").on("click", function () {
         location.reload();
     });
@@ -60,7 +53,6 @@ $(document).ready(function () {
             dataProduct.price = $("#input-cate-price-update").val();
             dataProduct.description = $("#input-cate-decription-update").val();
             dataProduct.cate_id = parseInt($(".category-id-update").val());
-            console.log(dataProduct);
 
             if ($("#file")[0].files.length === 0) {
                 dataProduct.image = img;
@@ -79,7 +71,7 @@ $(document).ready(function () {
                 axios.put("http://localhost:8080/admins/products/" + id, dataProduct)
                     .then(function (data) {
                         swal("successful");
-                        // location.reload();
+                        location.reload();
                     }).catch(function (err) {
                     swal("err");
                 })
