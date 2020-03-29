@@ -3,14 +3,16 @@ package com.smartosc.mobile.service.Impl;
 import com.smartosc.mobile.entity.Orders;
 import com.smartosc.mobile.exception.InternalServerException;
 import com.smartosc.mobile.exception.NotFoundException;
+import com.smartosc.mobile.model.dto.Paging;
 import com.smartosc.mobile.repository.OrdersRepository;
 import com.smartosc.mobile.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -19,9 +21,17 @@ public class OrdersSreviceImpl implements OrdersService {
     private OrdersRepository ordersRepository;
 
     @Override
-    public List<Orders> findAllOrder() {
-        List<Orders> orders = ordersRepository.findAll();
-        return orders;
+    public Paging findAllOrder(int page) {
+        Page<Orders> orders = ordersRepository.findAll(PageRequest.of(page, 8, Sort.by("dateOrder").descending()));
+
+        Paging paging = new Paging();
+        paging.setContent(orders.getContent());
+        int totalPage = (orders.getTotalPages() == 0 ? 1 : orders.getTotalPages());
+        paging.setTotalPage(totalPage);
+        paging.setCurrentPage(page + 1);
+        paging.setHasNext(orders.hasNext());
+        paging.setHasPrev(orders.hasPrevious());
+        return paging;
     }
 
     @Override

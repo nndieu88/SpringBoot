@@ -72,9 +72,11 @@ public class AdminController {
 
     //admin-orders-page
     @GetMapping("/orders")
-    public String order(Model model) {
-        List<Orders> orders = ordersService.findAllOrder();
-        model.addAttribute("orders",orders);
+    public String order(Model model, @RequestParam(required = false) Integer page) {
+        int currentPage = (page == null ? 0 : page - 1);
+
+        Paging orders = ordersService.findAllOrder(currentPage);
+        model.addAttribute("orders", orders);
         return "/admin/order";
     }
 

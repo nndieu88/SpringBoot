@@ -60,7 +60,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Cập nhật danh mục</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="closes" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -158,6 +158,9 @@
         <div class="content-grids">
             <h4>Deals of the day</h4>
             <div class="section group">
+                <div th:if="${isProduct}==false">
+                    <h2 style="text-align: center">Không tìm thấy sản phẩm nào</h2>
+                </div>
                 <div class="grid_1_of_4 images_1_of_4 products-info" th:each="product:${products.content}">
                     <a th:href="@{/mobile/info/__${product.id}__}"><img th:src="@{${product.image}}"></a>
                     <a th:href="@{/mobile/info/__${product.id}__}"><span th:text="${product.name}"></span></a>

@@ -23,7 +23,6 @@ public class ProductMapper {
         product.setCategory(createProduct.getCategory());
         product.setImage(createProduct.getImage());
         product.setPrice(createProduct.getPrice());
-        product.setStatus(createProduct.getStatus());
         product.setDescription(createProduct.getDescription());
         return product;
     }
@@ -35,7 +34,6 @@ public class ProductMapper {
         product.setCategory(productRequest.getCategory());
         product.setImage(productRequest.getImage());
         product.setPrice(productRequest.getPrice());
-        product.setStatus(productRequest.getStatus());
         product.setDescription(productRequest.getDescription());
         return product;
     }

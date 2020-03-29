@@ -44,7 +44,8 @@ public class ProductServiceImpl implements ProductService {
         paging.setCurrentPage(page + 1);
         paging.setHasNext(products.hasNext());
         paging.setHasPrev(products.hasPrevious());
-        paging.setTotalPage(products.getTotalPages());
+        int totalPage = (products.getTotalPages() == 0 ? 1 : products.getTotalPages());
+        paging.setTotalPage(totalPage);
         return paging;
     }
 
@@ -61,7 +62,8 @@ public class ProductServiceImpl implements ProductService {
         paging.setCurrentPage(page + 1);
         paging.setHasNext(products.hasNext());
         paging.setHasPrev(products.hasPrevious());
-        paging.setTotalPage(products.getTotalPages());
+        int totalPage = (products.getTotalPages() == 0 ? 1 : products.getTotalPages());
+        paging.setTotalPage(totalPage);
         return paging;
     }
 
@@ -76,7 +78,8 @@ public class ProductServiceImpl implements ProductService {
         Paging paging = new Paging();
         paging.setContent(productDtos);
         paging.setCurrentPage(page + 1);
-        paging.setTotalPage(products.getTotalPages());
+        int totalPage = (products.getTotalPages() == 0 ? 1 : products.getTotalPages());
+        paging.setTotalPage(totalPage);
         paging.setHasPrev(products.hasPrevious());
         paging.setHasNext(products.hasNext());
         return paging;
@@ -128,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             productRepository.deleteById(id);
         } catch (Exception ex) {
-            throw new InternalServerException(ex.getMessage());
+            throw new InternalServerException("Can't delete product");
         }
     }
 }

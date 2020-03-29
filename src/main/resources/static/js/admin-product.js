@@ -2,6 +2,13 @@ $(document).ready(function () {
     var dataProduct = {};
     var dataCate = {};
 
+    // $(".description-prod").on("mouseover", function () {
+    //     $(".description-detail").show();
+    // });
+    // $(".description-prod").on("mouseout", function () {
+    //     $(".description-detail").hide();
+    // });
+
     $(".close, #btn-close").on("click", function () {
         location.reload();
     });
@@ -13,7 +20,6 @@ $(document).ready(function () {
         $("#save-cate").on("click", function () {
             dataProduct.nameProd = $("#input-category-name").val();
             dataProduct.price = $("#input-category-price").val();
-            dataProduct.status = $("#input-category-status").val();
             dataProduct.description = $("#input-category-decription").val();
             dataProduct.cate_id = parseInt($(".category-id-create").val());
 
@@ -44,17 +50,17 @@ $(document).ready(function () {
             .then(function (data) {
                 $("#input-cate-name-update").val(data.data.nameProd);
                 $("#input-cate-price-update").val(data.data.price);
-                $("#input-cate-status-update").val(data.data.status);
                 $("#input-cate-decription-update").val(data.data.description);
                 img = data.data.image;
+                console.log($("#input-cate-name-update"))
             });
 
         $("#btn-update-cate").on("click", function () {
             dataProduct.nameProd = $("#input-cate-name-update").val();
             dataProduct.price = $("#input-cate-price-update").val();
-            dataProduct.status = $("#input-cate-status-update").val();
             dataProduct.description = $("#input-cate-decription-update").val();
-            dataProduct.cate_id=parseInt($(".category-id-update").val());
+            dataProduct.cate_id = parseInt($(".category-id-update").val());
+            console.log(dataProduct);
 
             if ($("#file")[0].files.length === 0) {
                 dataProduct.image = img;
@@ -73,7 +79,7 @@ $(document).ready(function () {
                 axios.put("http://localhost:8080/admins/products/" + id, dataProduct)
                     .then(function (data) {
                         swal("successful");
-                        location.reload();
+                        // location.reload();
                     }).catch(function (err) {
                     swal("err");
                 })

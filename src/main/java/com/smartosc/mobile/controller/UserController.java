@@ -63,6 +63,9 @@ public class UserController {
 
         int currentPage = (page == null ? 0 : page - 1);
         Paging products = productService.getAllProductByCategory(cateid, currentPage);
+        if (products.getContent().size() == 0) {
+            model.addAttribute("isProduct", false);
+        }
         model.addAttribute("products", products);
         model.addAttribute("cateid", cateid);
 
@@ -81,6 +84,9 @@ public class UserController {
 
         int currentPage = (page == null ? 0 : page - 1);
         Paging products = productService.getAllByName(key, currentPage);
+        if (products.getContent().size() == 0) {
+            model.addAttribute("isProduct", false);
+        }
         model.addAttribute("products", products);
 
         model.addAttribute("key", key);
@@ -111,6 +117,8 @@ public class UserController {
         model.addAttribute("product", product);
         List<Category> category = categoryService.findAllCategory();
         model.addAttribute("categories", category);
+
+        isUser(model);
         return "/user/info";
     }
 
@@ -122,24 +130,34 @@ public class UserController {
 
     @GetMapping("/cart")
     public String cart(@ModelAttribute("myCart") Cart cart, Model model) {
-        String name = "";
+        List<Category> category = categoryService.findAllCategory();
+        model.addAttribute("categories", category);
 
+        String name = "";
         model.addAttribute("products", cart.getCart());
         for (Product product : cart.getCart()) {
             name += product.toString();
         }
         model.addAttribute("nameProd", name);
+
+        isUser(model);
         return "/user/cart";
     }
 
     @GetMapping("/cart/{id}")
-    public String deleteCart(@PathVariable Long id, @ModelAttribute("myCart") Cart cart) {
+    public String deleteProduct(@PathVariable Long id, @ModelAttribute("myCart") Cart cart) {
         cart.deleteProduct(id);
         return "redirect:/mobile/cart";
     }
 
+    @GetMapping("/cart/delete")
+    public String deleteCart(@ModelAttribute("myCart") Cart cart){
+        cart.deleteAllProduct();
+        return "redirect:/mobile";
+    }
+
     @GetMapping("/404")
-    public String err404(){
+    public String err404() {
         return "user/404";
     }
 

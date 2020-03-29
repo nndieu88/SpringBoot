@@ -31,8 +31,6 @@ public class User {
 
     private String password;
 
-    private boolean status;
-
     private Date createDate;
 
     private Date updateDate;
@@ -48,4 +46,14 @@ public class User {
     @ManyToOne
     @JoinColumn
     private Role role;
+
+    public User(Long id, String nameUser, String address, String phone, String email, String password, Role role) {
+        this.id=id;
+        this.nameUser=nameUser;
+        this.address=address;
+        this.phone=phone;
+        this.email=email;
+        this.password=password;
+        this.role=role;
+    }
 }

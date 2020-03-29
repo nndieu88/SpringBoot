@@ -25,15 +25,20 @@ public class Cart {
 
     private Map<Long, Product> cart = new HashMap<>();
 
+    public int getCount(){
+        return cart.size();
+    }
+
     public void addProduct(Product product) {
         cart.put(product.getId(), product);
-        count = cart.size();
-
     }
 
     public void deleteProduct(Long id) {
         cart.remove(id);
-        count = cart.size();
+    }
+
+    public void deleteAllProduct(){
+        cart.clear();
     }
 
     public List<Product> getCart() {

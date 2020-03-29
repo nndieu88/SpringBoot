@@ -31,12 +31,10 @@ public class Product {
 
     private Long price;
 
-    private String status;
-
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Category category;
 

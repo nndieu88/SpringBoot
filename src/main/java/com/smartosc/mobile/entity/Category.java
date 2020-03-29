@@ -26,8 +26,4 @@ public class Category {
     private Date createDate;
 
     private Date updateDate;
-
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-    private Set<Product> products;
-
 }

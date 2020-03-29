@@ -7,8 +7,6 @@ import com.smartosc.mobile.model.request.CreateUserRequest;
 import com.smartosc.mobile.model.request.UpdateUserRequest;
 
 import java.util.Date;
-
-import com.smartosc.mobile.service.Impl.RoleServiceImpl;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserMapper {
@@ -21,7 +19,6 @@ public class UserMapper {
         userDto.setPhone(user.getPhone());
         userDto.setAvatar(user.getAvatar());
         userDto.setEmail(user.getEmail());
-        userDto.setStatus(false);
         userDto.setCreateDate(user.getCreateDate());
         userDto.setUpdateDate(user.getUpdateDate());
         userDto.setRole(user.getRole().getNameRole());
@@ -33,7 +30,6 @@ public class UserMapper {
         User user = new User();
         user.setNameUser(cur.getName());
         user.setEmail(cur.getEmail());
-        user.setStatus(false);
         user.setCreateDate(new Date());
         user.setUpdateDate(new Date());
 
@@ -54,7 +50,6 @@ public class UserMapper {
         user.setEmail(uur.getEmail());
         user.setPassword(password);
         user.setRole(role);
-        user.setStatus(false);
         user.setCreateDate(date);
         user.setUpdateDate(new Date());
 

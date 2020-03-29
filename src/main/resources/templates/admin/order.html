@@ -58,17 +58,12 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-                    <h1>Category Management</h1>
+                    <h1>Order Management</h1>
                     <form class="form-inline my-2 my-lg-0" method="get">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
                 </div>
-
-                <button type="button" class="btn btn-primary" id="new-category" data-toggle="modal"
-                        style="margin-bottom: 20px">
-                    Add new category
-                </button>
 
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
@@ -84,12 +79,15 @@
                                         Name_User
                                     </th>
                                     <th colspan="2">
+                                        Address
+                                    </th>
+                                    <th colspan="1">
                                         Phone
                                     </th>
                                     <th colspan="2">
                                         Name_Product
                                     </th>
-                                    <th colspan="2">
+                                    <th colspan="1">
                                         Price
                                     </th>
                                     <th colspan="2">
@@ -99,23 +97,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="order, i : ${orders}">
+                                <tr th:each="order, i : ${orders.getContent()}">
                                     <td colspan="1" th:text="${i.count}"></td>
                                     <td colspan="2" th:text="${order.nameUser}"></td>
-                                    <td colspan="2" th:text="${order.phone}"></td>
+                                    <td colspan="2" th:text="${order.address}"></td>
+                                    <td colspan="1" th:text="${order.phone}"></td>
                                     <td colspan="2" th:text="${order.nameProd}"></td>
-                                    <td colspan="2" th:text="${#numbers.formatCurrency(order.price)}"></td>
+                                    <td colspan="1" th:text="${#numbers.formatCurrency(order.price)}"></td>
                                     <td colspan="2"
                                         th:text="${#dates.format(order.dateOrder, 'dd-MM-yyyy HH:mm:ss')}"></td>
-<!--                                    <td colspan="1">-->
-<!--                                        <i class="far fa-edit btn-edit-cate" title="Edit category"-->
-<!--                                           th:attr="cateid=${cate.id}" style="cursor: pointer"></i>-->
-<!--                                        <i class="far fa-trash-alt btn-delete-cate" title="Delete category"-->
-<!--                                           th:attr="cateid=${cate.id}" style="cursor: pointer"></i>-->
-<!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <div class="topassda">
+                                <a th:href="@{'/admin/orders'( page=${orders.currentPage -1})}"
+                                   th:if="${orders.hasPrev}">Previous</a>
+                                <span th:text="${orders.currentPage}"></span>/<span
+                                    th:text="${orders.totalPage}"></span>
+                                <a th:href="@{'/admin/orders'( page=${orders.currentPage + 1})}"
+                                   th:if="${orders.hasNext}">Next</a>
+                            </div>
                         </div>
                     </div>
                 </div>

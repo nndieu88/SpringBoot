@@ -18,7 +18,6 @@ public class UserDto {
     private String phone;
     private String avatar;
     private String email;
-    private boolean status;
     private Date createDate;
     private Date updateDate;
     private String role;

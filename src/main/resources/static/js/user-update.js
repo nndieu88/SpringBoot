@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".close, #btn-close").on("click", function () {
+    $(".closes, #btn-close").on("click", function () {
         location.reload();
     });
 

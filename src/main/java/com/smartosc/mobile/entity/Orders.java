@@ -22,6 +22,8 @@ public class Orders {
 
     private String nameUser;
 
+    private String address;
+
     private String phone;
 
     private String nameProd;
